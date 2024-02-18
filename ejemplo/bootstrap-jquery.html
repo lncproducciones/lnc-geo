@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Demostraci&oacute;n Geografico.JS</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="cboPais">Pa&iacute;s</label>
+                                <select id="cboPais" class="form-control form-control-sm" onchange="cargaComboEstados()"></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cboEstado">Estado</label>
+                                <select id="cboEstado" class="form-control form-control-sm" onchange="cargaComboMunicipios()"></select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="cboMunicipio">Municipio</label>
+                                <select id="cboMunicipio" class="form-control form-control-sm" onchange="cargaComboCiudades()"></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cboCiudad">Ciudad</label>
+                                <select id="cboCiudad" class="form-control form-control-sm"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="js/lnc-geo.js"></script>
+    <script>
+        $(document).ready(() => {
+            geografico.listPaisesConEstados().done((res) => {
+                $("#cboPais").empty();
+                var selectedValue = 48; // COLOMBIA
+                $.each(res.items, (index, value) => {
+                    var selected = (value.valor == selectedValue) ? "selected" : "";
+                    $("#cboPais").append("<option value='" + value.valor + "' " + selected + ">" + value.texto + "</option>");
+                });
+                $("#cboPais").val(selectedValue);
+                cargaComboEstados();
+            });
+        });
+
+        function cargaComboEstados() {
+            geografico.listEstadosByPais($("#cboPais").val()).done((res) => {
+                $("#cboEstado").empty();
+                $.each(res.items, (index, value) => {
+                    $("#cboEstado").append("<option value='" + value.valor + "'>" + value.texto + "</option>");
+                });
+                cargaComboMunicipios();
+            });
+        }
+
+        function cargaComboMunicipios() {
+            geografico.listMunicipiosByEstado($("#cboPais").val(), $("#cboEstado").val()).done((res) => {
+                $("#cboMunicipio").empty();
+                $.each(res.items, (index, value) => {
+                    $("#cboMunicipio").append("<option value='" + value.valor + "'>" + value.texto + "</option>");
+                });
+                cargaComboCiudades();
+            });
+        }
+
+        function cargaComboCiudades() {
+            geografico.listCiudadesByMunicipio($("#cboPais").val(), $("#cboEstado").val(), $("#cboMunicipio").val()).done((res) => {
+                $("#cboCiudad").empty();
+                $.each(res.items, (index, value) => {
+                    $("#cboCiudad").append("<option value='" + value.valor + "'>" + value.texto + "</option>");
+                });
+            });
+        }
+    </script>
+  </body>
+</html>
