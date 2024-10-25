@@ -4,13 +4,13 @@
  * Contiene las rutinas para consumir el WCF     *
  * de información geográfica de Portal Services. *
  * ********************************************* *
- * Versión 0.24.2.18                             *
+ * Versión 2.24.10.25                            *
  * ********************************************* */
 
 class Geografico {
 
     constructor() {
-        window.geoApiRoot = "https://psweb4-geo.azurewebsites.net/api/";
+        window.geoApiRoot = "https://geoapi.psweb.me/";
 
         $.ajax({
             url: window.geoApiRoot + "sys/version"
