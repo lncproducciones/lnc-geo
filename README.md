@@ -5,7 +5,7 @@
 
 El cliente jQuery Geográfico de Portal Services for Web ha sido creado para agilizar y optimizar los tiempos de carga desde el lado cliente.
 
-Versión 2.24.10.25
+Versión 2.25.4.3
 
 ##### En esta sección
 

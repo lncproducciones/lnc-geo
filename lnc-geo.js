@@ -10,7 +10,7 @@
 class Geografico {
 
     constructor() {
-        window.geoApiRoot = "https://geoapi.psweb.me/";
+        window.geoApiRoot = "https://ctc-geografico.psweb.me/";
 
         $.ajax({
             url: window.geoApiRoot + "sys/version"
@@ -28,55 +28,49 @@ class Geografico {
 
     listAllPaises() {
         return $.ajax({
-            url: window.geoApiRoot + "paises/all"
-        })
-    }
-
-    listPaisesConEstados() {
-        return $.ajax({
-            url: window.geoApiRoot + "paises/detailed"
+            url: window.geoApiRoot + "paises/list"
         })
     }
 
     getPais(paisId) {
         return $.ajax({
-            url: window.geoApiRoot + "paises/view/" + paisId
+            url: window.geoApiRoot + "paises/get/" + paisId
         })
     }
 
     listEstadosByPais(paisId) {
         return $.ajax({
-            url: window.geoApiRoot + "estados/bypais/" + paisId
+            url: window.geoApiRoot + "estados/list/" + paisId
         })
     }
 
     getEstado(estadoId) {
         return $.ajax({
-            url: window.geoApiRoot + "estados/view/" + estadoId
+            url: window.geoApiRoot + "estados/get/" + estadoId
         })
     }
 
     listMunicipiosByEstado(paisId, estadoId) {
         return $.ajax({
-            url: window.geoApiRoot + "municipios/byestado/" + paisId + "-" + estadoId
+            url: window.geoApiRoot + "municipios/list/" + paisId + "/" + estadoId
         })
     }
 
     getMunicipio(municipioId) {
         return $.ajax({
-            url: window.geoApiRoot + "municipios/view/" + municipioId
+            url: window.geoApiRoot + "municipios/get/" + municipioId
         })
     }
 
     listCiudadesByMunicipio(paisId, estadoId, municipioId) {
         return $.ajax({
-            url: window.geoApiRoot + "ciudades/bymunicipio/" + paisId + "-" + estadoId + "-" + municipioId
+            url: window.geoApiRoot + "ciudades/list/" + paisId + "/" + estadoId + "/" + municipioId
         })
     }
 
     getCiudad(ciudadId) {
         return $.ajax({
-            url: window.geoApiRoot + "ciudades/view/" + ciudadId
+            url: window.geoApiRoot + "ciudades/get/" + ciudadId
         })
     }
 }
